@@ -16,5 +16,5 @@ An example of building a REST app in Python.
 tox
 ```
 
-## How to View API Doc
+## How to View the API Doc
 [http://localhost:8080/swagger/index.html](http://localhost:8080/swagger/index.html)
