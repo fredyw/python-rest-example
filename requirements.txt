@@ -1,1 +1,2 @@
 sanic==0.5.4
+sanic-openapi==0.2.1
