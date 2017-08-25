@@ -1,5 +1,12 @@
+import gzip
+
+
 def compress(app):
-    import gzip
+    @app.middleware('request')
+    async def compress_request(request):
+        if 'Content-Encoding' in request.headers:
+            if request.headers['Content-Encoding'] == 'gzip':
+                request.body = gzip.decompress(request.body)
 
     @app.middleware('response')
     async def compress_response(request, response):
@@ -11,9 +18,3 @@ def compress(app):
                 response.headers['Content-Encoding'] = 'gzip'
                 response.headers['Vary'] = 'Accept-Encoding'
                 response.headers['Content-Length'] = compressed_body_length
-
-    @app.middleware('request')
-    async def compress_request(request):
-        if 'Content-Encoding' in request.headers:
-            if request.headers['Content-Encoding'] == 'gzip':
-                request.body = gzip.decompress(request.body)
